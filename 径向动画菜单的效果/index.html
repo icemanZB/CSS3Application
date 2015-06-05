@@ -14,7 +14,7 @@
             font-family: "微软雅黑";
         }
 
-        h1,h2 {
+        h1, h2 {
             margin-top: 20px;
             text-align: center;
             color: #fff;
@@ -53,6 +53,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
+            /* transform: scale(0) 缩小初始值为0 */
             transform: scale(0);
             /* 设置平滑过渡 */
             transition: all 0.5s ease-out;
@@ -60,6 +61,7 @@
         }
 
         .nav-wrap.active nav {
+            /* transform: scale(1) 放大为正常倍数 */
             transform: scale(1);
             opacity: 1;
         }
@@ -74,15 +76,22 @@
             text-decoration: none;
             color: #fff;
             border-radius: 3px;
-            text-shadow: 1px 1px 0px #000;
+            text-shadow: 1px 1px 0 #000;
+            /*
+                第一个a的左上角默认对着盒子nav-wrap的左角,应该是盒子的左角对准a的中心点,所以进行了平移
+            */
             transform: translate(-50%, -50%);
         }
+
     </style>
 </head>
 <body>
 <h1>径向动画菜单效果分步演示</h1>
+
 <h2>http://anjia.github.io/2015/02/02/code_point_circleMenu/</h2>
+
 <h2>http://codepen.io/anjia/pen/JoByoK</h2>
+
 <div class="nav-wrap">
     <nav>
         <a class="nav-item">1</a>
@@ -107,6 +116,7 @@
             e.preventDefault();
 
             var me = $(this),
+            // closest() 方法获得匹配选择器的第一个祖先元素,从当前元素开始沿 DOM 树向上。
                     navWrap = me.closest('.nav-wrap'), // 动画效果的父容器
                     navs = navWrap.find('nav a'); // 父容器中的所有子菜单
 
@@ -131,12 +141,12 @@
                 /*
                  * 计算并确定各个子菜单的最终位置
                  */
-                $.each(navs, function (index, item) {
+                $.each(navs, function (index) {
 
                     // 当前子菜单与x轴正向的夹角 θ （角度->弧度）
                     var myAngle = (startAngle + gap * index) * radian;  // θ
 
-                    // 计算当前子菜单相对于左上角(0,0)的坐标 (x,y)
+                    // 计算当前子菜单相对于左上角(0,0)的坐标 (x,y),也就是求出圆上任意一点的位置
                     var myX = radius + radius * Math.cos(myAngle), // x=r+rcos(θ)
                             myY = radius + radius * Math.sin(myAngle); // y=r+rsin(θ)
 
