@@ -256,13 +256,13 @@
 
         addPhotos();
 
-        $('.photo').click(function(){
+        $('.photo').click(function () {
             turn($(this).get(0));
         });
 
-        $('.nav').find('span').click(function(){
-            var index=$(this).attr("data-index");
-            turn($('#photo_'+index).get(0));
+        $('.nav').find('span').click(function () {
+            var index = $(this).attr("data-index");
+            turn($('#photo_' + index).get(0));
         });
 
 
@@ -275,10 +275,12 @@
 
             // 去掉除了传入n的海报的所有photo_center
             // 去除'photo_front', 'photo_back' 是因为点击nav导航的时候需要清空样式
-            //.removeClass(['photo_center', 'photo_front', 'photo_back'])
+            //_photo.removeClass(['photo_center', 'photo_front', 'photo_back'])
             _photo.attr('style', '');
 
-            _photo.attr('class','photo photo_front');  // 设置样式为初始值
+            // _photo.attr('class','photo photo_front');  // 设置样式为初始值
+
+            _photo.removeClass('photo_center photo_front photo_back');
 
             console.log(_photo);
 
@@ -335,10 +337,10 @@
 
             // 判断当前的元素是不是photo_center
             /*if (!/photo_center/.test(cls)) {
-                return rSort(n);
-            }*/
+             return rSort(n);
+             }*/
 
-            if(!_$ele.hasClass('photo_center')){
+            if (!_$ele.hasClass('photo_center')) {
                 return rSort(n);
             }
 
